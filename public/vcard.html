@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#10252c">
+	<title>Visitenkarte | Kekezi Smart Mobility</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--navy: #10252c;
+			--navy-soft: #193840;
+			--yellow: #f3c43d;
+			--paper: #f4f5f1;
+			--muted: #647276;
+			--font: "Manrope", "Segoe UI", sans-serif;
+		}
+
+		* { box-sizing: border-box; }
+		body {
+			min-height: 100vh;
+			margin: 0;
+			padding: 48px 24px;
+			background: #e8ece9;
+			color: var(--navy);
+			font-family: var(--font);
+			-webkit-font-smoothing: antialiased;
+		}
+		.toolbar {
+			display: flex;
+			width: min(760px, 100%);
+			justify-content: space-between;
+			align-items: center;
+			gap: 18px;
+			margin: 0 auto 28px;
+		}
+		.toolbar p { margin: 0; color: #506064; font-size: 13px; line-height: 1.5; }
+		.toolbar strong { display: block; margin-bottom: 3px; color: var(--navy); font-size: 15px; }
+		.print-button {
+			flex: 0 0 auto;
+			padding: 12px 17px;
+			border: 0;
+			border-radius: 4px;
+			background: var(--yellow);
+			color: var(--navy);
+			font: 800 13px var(--font);
+			cursor: pointer;
+		}
+		.cards { display: grid; justify-items: center; gap: 28px; }
+		.card {
+			position: relative;
+			isolation: isolate;
+			width: 91mm;
+			height: 61mm;
+			overflow: hidden;
+			box-shadow: 0 12px 35px rgba(16, 37, 44, .14);
+			-webkit-print-color-adjust: exact;
+			print-color-adjust: exact;
+		}
+		.front {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			background: var(--navy);
+			color: white;
+		}
+		.front::before, .front::after { position: absolute; z-index: -1; content: ""; }
+		.front::before {
+			inset: 0 0 auto;
+			height: 3mm;
+			background: var(--yellow);
+		}
+		.front::after {
+			right: -14mm;
+			bottom: -31mm;
+			width: 72mm;
+			height: 72mm;
+			border: 1px solid rgba(255, 255, 255, .1);
+			border-radius: 50%;
+		}
+		.logo-panel {
+			display: grid;
+			width: 58mm;
+			height: 15mm;
+			place-items: center;
+			background: white;
+		}
+		.logo-panel img { display: block; width: 54mm; height: auto; }
+		.front-tagline {
+			margin: 3.2mm 0 0;
+			color: #e3eae7;
+			font-size: 2.35mm;
+			font-weight: 600;
+			letter-spacing: .08em;
+			text-transform: uppercase;
+		}
+		.front-location {
+			display: flex;
+			align-items: center;
+			gap: 2mm;
+			margin-top: 4.5mm;
+			color: var(--yellow);
+			font-size: 2.25mm;
+			font-weight: 800;
+			text-transform: uppercase;
+		}
+		.front-location::before, .front-location::after {
+			width: 8mm;
+			height: .3mm;
+			background: var(--yellow);
+			content: "";
+		}
+		.back { display: grid; grid-template-columns: 3mm 1fr; background: #fff; }
+		.back-accent { background: var(--yellow); }
+		.back-content {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			padding: 0 8mm 0 7mm;
+		}
+		.back-heading {
+			margin: 0;
+			color: var(--navy);
+			font-size: 4mm;
+			font-weight: 800;
+			line-height: 1.15;
+		}
+		.back-subtitle { margin: 1.2mm 0 4.5mm; color: var(--muted); font-size: 2.1mm; font-weight: 600; }
+		.contact-list { display: grid; gap: 1.9mm; margin: 0; padding: 0; list-style: none; }
+		.contact-list li { display: flex; align-items: baseline; gap: 2.7mm; min-width: 0; font-size: 2.55mm; line-height: 1.3; }
+		.contact-list .label { flex: 0 0 12mm; color: #748083; font-size: 1.8mm; font-weight: 800; text-transform: uppercase; }
+		.contact-list a, .contact-list span:not(.label) { color: var(--navy); font-weight: 700; text-decoration: none; }
+		.back-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 4.6mm; padding-top: 2mm; border-top: .25mm solid #dce2df; color: #506064; font-size: 1.8mm; font-weight: 700; }
+		.back-footer strong { color: var(--navy); }
+
+		@page { size: 91mm 61mm; margin: 0; }
+		@media print {
+			html, body { width: 91mm; margin: 0; padding: 0; background: white; }
+			.toolbar { display: none; }
+			.cards { display: block; }
+			.card { margin: 0; box-shadow: none; break-after: page; page-break-after: always; }
+			.card:last-child { break-after: auto; page-break-after: auto; }
+		}
+		@media screen and (max-width: 560px) {
+			body { padding: 28px 12px; overflow-x: auto; }
+			.toolbar { align-items: flex-start; }
+			.toolbar p { max-width: 195px; }
+			.cards { justify-items: start; width: max-content; margin-inline: auto; }
+		}
+	</style>
+</head>
+<body>
+	<header class="toolbar">
+		<p><strong>Kekezi Smart Mobility</strong>85 × 55 mm pas prerjes · 3 mm bleed në çdo anë</p>
+		<button class="print-button" type="button" onclick="window.print()">Print / Save PDF</button>
+	</header>
+	<main class="cards" aria-label="Të dy anët e kartëvizitës">
+		<section class="card front" aria-label="Ana e përparme">
+			<div class="logo-panel"><img src="img/logo.jpg" alt="Kekezi Smart Mobility"></div>
+			<p class="front-tagline">Premium Transfer &amp; Mobility Service</p>
+			<div class="front-location">Zürich · Schweiz</div>
+		</section>
+		<section class="card back" aria-label="Ana e pasme">
+			<div class="back-accent" aria-hidden="true"></div>
+			<div class="back-content">
+				<h1 class="back-heading">Kekezi Smart Mobility</h1>
+				<p class="back-subtitle">Premium Airport- &amp; Business-Transfer Zürich</p>
+				<ul class="contact-list">
+					<li><span class="label">Telefon</span><a href="tel:+41763402696">+41 76 340 26 96</a></li>
+					<li><span class="label">E-Mail</span><a href="mailto:info@kekezi.ch">info@kekezi.ch</a></li>
+					<li><span class="label">Adresse</span><span>Unterrenggstrasse 40</span></li>
+					<li><span class="label">Standort</span><span>8135 Langnau am Albis, Schweiz</span></li>
+				</ul>
+				<div class="back-footer"><strong>KEKEZI.CH</strong><span>Zürich · Schweiz</span></div>
+			</div>
+		</section>
+	</main>
+</body>
+</html>

@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Kekezi Smart Mobility | Premium Taxi & Transfer Zürich</title>
+	<meta name="description"
+		content="Premium Airport-, Business-, Schüler- und Schultransporte in Zürich und der ganzen Schweiz. Kekezi Smart Mobility.">
+
+	<link rel="icon" type="image/png" href="img/favicon.png">
+
+	<style>
+		:root {
+			--yellow: #f6c400;
+			--yellow-dark: #dcae00;
+			--navy: #071a38;
+			--blue: #0d376b;
+			--light: #f6f8fb;
+			--text: #1b2638;
+			--muted: #687386;
+			--white: #ffffff;
+			--border: #e5e9ef;
+			--shadow: 0 12px 35px rgba(7, 26, 56, .10);
+			--radius: 18px;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+			color: var(--text);
+			background: var(--white);
+			line-height: 1.6;
+		}
+
+		a {
+			color: inherit;
+			text-decoration: none;
+		}
+
+		img {
+			max-width: 100%;
+			display: block;
+		}
+
+		.container {
+			width: min(1160px, 92%);
+			margin: auto;
+		}
+
+		.topbar {
+			background: var(--navy);
+			color: white;
+			font-size: 14px;
+			padding: 9px 0;
+		}
+
+		.topbar-content {
+			display: flex;
+			justify-content: space-between;
+			gap: 20px;
+			flex-wrap: wrap;
+		}
+
+		header {
+			position: sticky;
+			top: 0;
+			z-index: 10;
+			background: rgba(255, 255, 255, .96);
+			border-bottom: 1px solid var(--border);
+			backdrop-filter: blur(12px);
+		}
+
+		.nav {
+			min-height: 78px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 25px;
+		}
+
+		.logo {
+			width: 220px;
+		}
+
+		.nav-links {
+			display: flex;
+			align-items: center;
+			gap: 25px;
+			font-weight: bold;
+			font-size: 15px;
+		}
+
+		.nav-links a:hover {
+			color: var(--yellow-dark);
+		}
+
+		.nav-button,
+		.btn {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			border-radius: 8px;
+			padding: 13px 20px;
+			font-weight: bold;
+			transition: .25s ease;
+			border: none;
+			cursor: pointer;
+		}
+
+		.nav-button,
+		.btn-primary {
+			background: var(--yellow);
+			color: var(--navy);
+		}
+
+		.nav-button:hover,
+		.btn-primary:hover {
+			background: var(--yellow-dark);
+			transform: translateY(-2px);
+		}
+
+		.btn-dark {
+			background: var(--navy);
+			color: white;
+		}
+
+		.btn-dark:hover {
+			background: var(--blue);
+			transform: translateY(-2px);
+		}
+
+		.menu-toggle {
+			display: none;
+			border: none;
+			background: none;
+			font-size: 28px;
+			color: var(--navy);
+			cursor: pointer;
+		}
+
+		.hero {
+			background:
+				linear-gradient(90deg, rgba(7, 26, 56, .96), rgba(7, 26, 56, .76)),
+				url("hero-taxi.jpg") center/cover;
+			color: white;
+			padding: 110px 0 100px;
+		}
+
+		.hero-content {
+			max-width: 730px;
+		}
+
+		.eyebrow {
+			display: inline-block;
+			color: var(--yellow);
+			font-weight: bold;
+			letter-spacing: 1.5px;
+			text-transform: uppercase;
+			font-size: 14px;
+			margin-bottom: 15px;
+		}
+
+		h1 {
+			font-size: clamp(38px, 6vw, 70px);
+			line-height: 1.05;
+			margin-bottom: 22px;
+		}
+
+		h2 {
+			color: var(--navy);
+			font-size: clamp(28px, 4vw, 42px);
+			line-height: 1.15;
+			margin-bottom: 15px;
+		}
+
+		h3 {
+			color: var(--navy);
+			margin-bottom: 10px;
+		}
+
+		.hero p {
+			font-size: 20px;
+			max-width: 650px;
+			color: #e8edf5;
+			margin-bottom: 30px;
+		}
+
+		.hero-buttons {
+			display: flex;
+			gap: 12px;
+			flex-wrap: wrap;
+		}
+
+		section {
+			padding: 85px 0;
+		}
+
+		.section-heading {
+			max-width: 700px;
+			margin-bottom: 38px;
+		}
+
+		.section-heading p {
+			color: var(--muted);
+			font-size: 18px;
+		}
+
+		.yellow-line {
+			width: 65px;
+			height: 5px;
+			background: var(--yellow);
+			margin: 18px 0 25px;
+			border-radius: 10px;
+		}
+
+		.cards {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 22px;
+		}
+
+		.card {
+			background: white;
+			border: 1px solid var(--border);
+			border-radius: var(--radius);
+			padding: 28px;
+			box-shadow: var(--shadow);
+		}
+
+		.card-icon {
+			width: 48px;
+			height: 48px;
+			display: grid;
+			place-items: center;
+			border-radius: 12px;
+			background: #fff6c9;
+			color: var(--navy);
+			font-size: 24px;
+			margin-bottom: 18px;
+		}
+
+		.card p {
+			color: var(--muted);
+		}
+
+		.light-section {
+			background: var(--light);
+		}
+
+		.price-grid {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 24px;
+		}
+
+		.price-card {
+			background: white;
+			border-radius: var(--radius);
+			padding: 30px;
+			border: 1px solid var(--border);
+			box-shadow: var(--shadow);
+		}
+
+		.price-card.featured {
+			border: 2px solid var(--yellow);
+		}
+
+		.price {
+			color: var(--navy);
+			font-size: 30px;
+			font-weight: bold;
+			margin: 12px 0;
+		}
+
+		.price span {
+			font-size: 15px;
+			color: var(--muted);
+			font-weight: normal;
+		}
+
+		.price-list {
+			list-style: none;
+			margin-top: 18px;
+		}
+
+		.price-list li {
+			padding: 10px 0;
+			border-bottom: 1px solid var(--border);
+			display: flex;
+			justify-content: space-between;
+			gap: 20px;
+		}
+
+		.price-list li:last-child {
+			border-bottom: none;
+		}
+
+		.price-list strong {
+			color: var(--navy);
+			white-space: nowrap;
+		}
+
+		.fleet {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 22px;
+		}
+
+		.vehicle {
+			overflow: hidden;
+			background: white;
+			border-radius: var(--radius);
+			box-shadow: var(--shadow);
+			border: 1px solid var(--border);
+		}
+
+		.vehicle-image {
+			height: 210px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 40px;
+			background: linear-gradient(135deg, #0048bb, #ffffff);
+			overflow: hidden;
+		}
+
+		.vehicle-image img {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+			transition: transform .3s ease;
+		}
+
+		.vehicle:hover .vehicle-image img {
+			transform: scale(1.06);
+		}
+
+		.vehicle-year {
+			display: inline-block;
+			margin: 3px 0 10px;
+			padding: 4px 10px;
+			border-radius: 5px;
+			background: #f6c400;
+			color: #071a38;
+			font-size: 13px;
+			font-weight: bold;
+		}
+
+
+		.vehicle-content {
+			padding: 23px;
+		}
+
+		.vehicle-content p {
+			color: var(--muted);
+		}
+
+		.check-list {
+			list-style: none;
+			display: grid;
+			gap: 12px;
+			margin-top: 20px;
+		}
+
+		.check-list li::before {
+			content: "✓";
+			display: inline-grid;
+			place-items: center;
+			width: 23px;
+			height: 23px;
+			border-radius: 50%;
+			background: var(--yellow);
+			color: var(--navy);
+			font-weight: bold;
+			margin-right: 10px;
+		}
+
+		.school-box {
+			background: var(--navy);
+			color: white;
+			border-radius: 24px;
+			padding: 45px;
+		}
+
+		.school-box h2,
+		.school-box h3 {
+			color: white;
+		}
+
+		.school-box p {
+			color: #dce5f2;
+		}
+
+		.school-prices {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 15px;
+			margin-top: 30px;
+		}
+
+		.school-price {
+			background: rgba(255, 255, 255, .08);
+			padding: 20px;
+			border-radius: 12px;
+		}
+
+		.school-price strong {
+			display: block;
+			color: var(--yellow);
+			font-size: 23px;
+			margin-top: 5px;
+		}
+
+		.contact-section {
+			background: var(--yellow);
+		}
+
+		.contact-wrapper {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 45px;
+			align-items: start;
+		}
+
+		.contact-section h2 {
+			color: var(--navy);
+		}
+
+		.contact-details {
+			display: grid;
+			gap: 13px;
+			margin-top: 25px;
+		}
+
+		.contact-details a:hover {
+			text-decoration: underline;
+		}
+
+		form {
+			background: white;
+			padding: 30px;
+			border-radius: var(--radius);
+			box-shadow: var(--shadow);
+		}
+
+		.form-row {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 15px;
+		}
+
+		label {
+			display: block;
+			font-size: 14px;
+			font-weight: bold;
+			margin-bottom: 6px;
+			color: var(--navy);
+		}
+
+		input,
+		textarea,
+		select {
+			width: 100%;
+			padding: 13px;
+			border: 1px solid var(--border);
+			border-radius: 7px;
+			margin-bottom: 16px;
+			font: inherit;
+		}
+
+		textarea {
+			min-height: 110px;
+			resize: vertical;
+		}
+
+		footer {
+			background: var(--navy);
+			color: white;
+			padding: 35px 0;
+		}
+
+		.footer-content {
+			display: flex;
+			justify-content: space-between;
+			gap: 20px;
+			flex-wrap: wrap;
+		}
+
+		.footer-content p {
+			color: #cbd5e4;
+		}
+
+		.mobile-call {
+			position: fixed;
+			right: 18px;
+			bottom: 18px;
+			z-index: 20;
+			width: 58px;
+			height: 58px;
+			border-radius: 50%;
+			display: grid;
+			place-items: center;
+			background: var(--yellow);
+			color: var(--navy);
+			font-size: 25px;
+			box-shadow: 0 8px 25px rgba(0, 0, 0, .2);
+		}
+
+		@media (max-width: 850px) {
+			.menu-toggle {
+				display: block;
+			}
+
+			.nav-links {
+				position: absolute;
+				top: 78px;
+				left: 0;
+				right: 0;
+				background: white;
+				padding: 20px;
+				display: none;
+				flex-direction: column;
+				align-items: stretch;
+				border-bottom: 1px solid var(--border);
+			}
+
+			.nav-links.active {
+				display: flex;
+			}
+
+			.nav-links a,
+			.nav-button {
+				text-align: center;
+			}
+
+			.cards,
+			.fleet,
+			.price-grid,
+			.contact-wrapper {
+				grid-template-columns: 1fr;
+			}
+
+			.school-prices {
+				grid-template-columns: 1fr;
+			}
+
+			.hero {
+				padding: 80px 0;
+			}
+		}
+
+		@media (max-width: 520px) {
+			.topbar-content {
+				justify-content: center;
+				text-align: center;
+			}
+
+			.logo {
+				width: 135px;
+			}
+
+			.form-row {
+				grid-template-columns: 1fr;
+				gap: 0;
+			}
+
+			.school-box {
+				padding: 28px 22px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="topbar">
+		<div class="container topbar-content">
+			<span>Premium Transfer & Mobility Service Zürich</span>
+			<span>☎ 076 340 26 96</span>
+		</div>
+	</div>
+
+	<header>
+		<div class="container nav">
+			<a href="#start">
+				<img src="img/logo.jpg" alt="Kekezi Smart Mobility Logo" class="logo">
+			</a>
+
+			<button class="menu-toggle" onclick="toggleMenu()" aria-label="Menü öffnen">
+				☰
+			</button>
+
+			<nav class="nav-links" id="navLinks">
+				<a href="#leistungen">Dienstleistungen</a>
+				<a href="#preise">Preise</a>
+				<a href="#fahrzeuge">Fahrzeuge</a>
+				<a href="#schultransport">Schultransport</a>
+				<a href="#kontakt" class="nav-button">Jetzt anfragen</a>
+			</nav>
+		</div>
+	</header>
+
+	<main id="start">
+
+		<section class="hero">
+			<div class="container hero-content">
+				<span class="eyebrow">Kekezi Smart Mobility</span>
+				<h1>Premium Transfers in Zürich und der ganzen Schweiz</h1>
+				<p>
+					Komfortabler, diskreter und zuverlässiger Chauffeurservice
+					für Business, Airport, VIP, Hotels, Schulen und Events.
+				</p>
+
+				<div class="hero-buttons">
+					<a href="tel:+41763402696" class="btn btn-primary">
+						Jetzt anrufen
+					</a>
+					<a href="#kontakt" class="btn btn-dark">
+						Offerte anfragen
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<section id="leistungen">
+			<div class="container">
+				<div class="section-heading">
+					<span class="eyebrow">Unsere Dienstleistungen</span>
+					<h2>Mobilität mit Komfort und Vertrauen</h2>
+					<div class="yellow-line"></div>
+					<p>
+						Wir bieten professionelle Transportlösungen für Privatpersonen,
+						Firmen, Hotels, Schulen und Institutionen.
+					</p>
+				</div>
+
+				<div class="cards">
+					<article class="card">
+						<div class="card-icon">✈</div>
+						<h3>Flughafentransfers</h3>
+						<p>
+							Pünktliche Transfers zum und vom Flughafen Zürich sowie zu
+							Flughäfen in der Schweiz und Europa.
+						</p>
+					</article>
+
+					<article class="card">
+						<div class="card-icon">◆</div>
+						<h3>Business & VIP</h3>
+						<p>
+							Diskreter Premium-Chauffeurservice für Geschäftskunden,
+							Hotels, VIP-Gäste und private Fahrten.
+						</p>
+					</article>
+
+					<article class="card">
+						<div class="card-icon">★</div>
+						<h3>Events & Spezialfahrten</h3>
+						<p>
+							Flexible Transporte für Konferenzen, Events, Gruppen und
+							individuelle Anforderungen.
+						</p>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section id="preise" class="light-section">
+			<div class="container">
+				<div class="section-heading">
+					<span class="eyebrow">Tarifblatt 2026</span>
+					<h2>Transparente Preise</h2>
+					<div class="yellow-line"></div>
+					<p>
+						Die folgenden Preise dienen als Orientierung. Für individuelle
+						Fahrten erstellen wir gerne eine persönliche Offerte.
+					</p>
+				</div>
+
+				<div class="price-grid">
+					<article class="price-card featured">
+						<h3>Chauffeurservice</h3>
+						<p>Business- und VIP-Transfer, stundenweise buchbar</p>
+						<div class="price">150 CHF <span>pro Stunde</span></div>
+						<p><strong>Mindestbuchung: 2 Stunden</strong></p>
+
+						<ul class="price-list">
+							<li><span>2 Stunden</span><strong>300 CHF</strong></li>
+							<li><span>4 Stunden</span><strong>600 CHF</strong></li>
+							<li><span>Tagesbuchung, 8 Stunden</span><strong>ab 900 CHF</strong></li>
+						</ul>
+					</article>
+
+					<article class="price-card">
+						<h3>Flughafentransfers</h3>
+						<p>Ab-Preise für ausgewählte Strecken</p>
+
+						<ul class="price-list">
+							<li><span>Zürich Flughafen → Zürich Stadt</span><strong>ab 120 CHF</strong></li>
+							<li><span>Zürich Flughafen → Zug / Luzern</span><strong>ab 220 CHF</strong></li>
+							<li><span>Zürich → Basel Flughafen</span><strong>ab 280 CHF</strong></li>
+							<li><span>Zürich → Genf Flughafen</span><strong>ab 700 CHF</strong></li>
+							<li><span>Zürich → Europa</span><strong>auf Anfrage</strong></li>
+						</ul>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section id="fahrzeuge">
+			<div class="container">
+				<div class="section-heading">
+					<span class="eyebrow">Unsere Fahrzeugflotte</span>
+
+					<h2>Premium-Komfort für jede Fahrt</h2>
+
+					<div class="yellow-line"></div>
+
+					<p>
+						Moderne Fahrzeuge, großzügiger Gepäckraum und komfortable
+						Business-Ausstattung.
+					</p>
+				</div>
+
+				<div class="fleet">
+
+					<!-- Mercedes-Benz V-Class -->
+					<article class="vehicle">
+						<div class="vehicle-image">
+							<img src="img/v-class.png" alt="Mercedes-Benz V-Class Baujahr 2019">
+						</div>
+
+						<div class="vehicle-content">
+							<h3>Mercedes-Benz V-Class</h3>
+
+							<!-- <p class="vehicle-year">Baujahr 2019</p> -->
+
+							<p>
+								Bis zu 6–7 Passagiere. Ideal für Gruppen, Familien, Hotels
+								und Business-Transfers.
+							</p>
+						</div>
+					</article>
+
+					<!-- Mercedes-Benz E-Class -->
+					<article class="vehicle">
+						<div class="vehicle-image">
+							<img src="img/e-class.png" alt="Mercedes-Benz E-Class Baujahr 2022">
+						</div>
+
+						<div class="vehicle-content">
+							<h3>Mercedes-Benz E-Class</h3>
+
+							<!-- <p class="vehicle-year">Baujahr 2022</p> -->
+
+							<p>
+								Bis zu 3–4 Passagiere. Komfortable Premium-Lösung für
+								Business- und Flughafentransfers.
+							</p>
+						</div>
+					</article>
+
+					<!-- Mercedes-Benz S-Class -->
+					<article class="vehicle">
+						<div class="vehicle-image">
+							<img src="img/s-class.png" alt="Mercedes-Benz S-Class Baujahr 2022">
+						</div>
+
+						<div class="vehicle-content">
+							<h3>Mercedes-Benz S-Class</h3>
+
+							<!-- <p class="vehicle-year">Baujahr 2022</p> -->
+
+							<p>
+								Bis zu 3–4 Passagiere. Exklusiver Komfort für VIP- und
+								Privatfahrten.
+							</p>
+						</div>
+					</article>
+
+				</div>
+			</div>
+		</section>
+
+
+		<section class="light-section">
+			<div class="container">
+				<div class="section-heading">
+					<span class="eyebrow">Warum Kekezi?</span>
+					<h2>Ihr zuverlässiger Partner für Premium-Transfers</h2>
+					<div class="yellow-line"></div>
+				</div>
+
+				<ul class="check-list">
+					<li>Pünktlicher und professioneller Service</li>
+					<li>Diskrete Betreuung von Geschäfts- und Privatkunden</li>
+					<li>Flexible Verfügbarkeit nach Vereinbarung</li>
+					<li>Premium-Komfort in Zürich und der ganzen Schweiz</li>
+					<li>Individuelle Lösungen für Firmen und Hotels</li>
+				</ul>
+			</div>
+		</section>
+
+		<section id="schultransport">
+			<div class="container">
+				<div class="school-box">
+					<span class="eyebrow">Schüler- & Schultransport</span>
+					<h2>Sicherer Transport für Schulen, Familien und Institutionen</h2>
+					<p>
+						Professioneller Fahrdienst mit Mercedes-Benz V-Klasse und
+						E-Klasse für Schüler, Gruppen und besondere Transportanforderungen.
+					</p>
+
+					<div class="school-prices">
+						<div class="school-price">
+							Schulweg Zürich
+							<strong>ab 50 CHF</strong>
+							pro Fahrt
+						</div>
+
+						<div class="school-price">
+							Zürich Umgebung
+							<strong>ab 70 CHF</strong>
+							pro Fahrt
+						</div>
+
+						<div class="school-price">
+							Halbtag / Ganztag
+							<strong>ab 450 CHF</strong>
+							bis 4 Stunden
+						</div>
+					</div>
+
+					<ul class="check-list">
+						<li>Pünktliche Abholung und Rückfahrt</li>
+						<li>Professioneller Chauffeur</li>
+						<li>Platz für Schülergruppen</li>
+						<li>Sicherheit und Diskretion</li>
+						<li>Flexible Vereinbarungen mit Schulen</li>
+					</ul>
+
+					<br>
+
+					<p>
+						Geeignet für Privatschulen, internationale Schulen, Sprachschulen,
+						Bildungsinstitutionen und Schulveranstaltungen.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<section id="kontakt" class="contact-section">
+			<div class="container contact-wrapper">
+
+				<div class="contact-info">
+					<span class="eyebrow">Kontakt</span>
+
+					<h2>Ihr zuverlässiger Partner für Premium-Transfers</h2>
+
+					<p>
+						Kontaktieren Sie uns für eine persönliche Offerte oder buchen Sie
+						Ihren Premium-Transfer direkt telefonisch.
+					</p>
+
+					<div class="contact-details">
+						<strong>Kekezi Smart Mobility</strong>
+						<span>Premium Airport- & Business-Transfer Zürich</span>
+						<span>Unterrenggstrasse 40</span>
+						<span>8135 Langnau am Albis</span>
+
+						<a href="tel:+41763402696">
+							☎ 076 340 26 96
+						</a>
+
+						<a href="mailto:info@kekezi.ch">
+							✉ info@kekezi.ch
+						</a>
+					</div>
+
+					<br>
+
+					<a href="https://www.google.com/maps/search/?api=1&query=Unterrenggstrasse+40,+8135+Langnau+am+Albis,+Switzerland"
+						target="_blank" rel="noopener" class="btn btn-dark">
+						Route in Google Maps öffnen
+					</a>
+				</div>
+
+				<div class="map-container">
+					<iframe
+						src="https://www.google.com/maps?q=Unterrenggstrasse+40,+8135+Langnau+am+Albis,+Switzerland&output=embed"
+						width="100%" height="430" style="border:0;" allowfullscreen="" loading="lazy"
+						referrerpolicy="no-referrer-when-downgrade"
+						title="Kekezi Smart Mobility Standort auf Google Maps">
+					</iframe>
+				</div>
+
+			</div>
+		</section>
+
+
+	</main>
+
+	<footer>
+		<div class="container footer-content">
+			<div>
+				<strong>KEKEZI SMART MOBILITY</strong>
+				<p>Premium Transfer- & Mobility-Service Zürich</p>
+			</div>
+
+			<p>© 2026 Kekezi Smart Mobility. Alle Rechte vorbehalten.</p>
+		</div>
+	</footer>
+
+	<a href="tel:+41763402696" class="mobile-call" aria-label="Kekezi anrufen">
+		☎
+	</a>
+
+	<script>
+		function toggleMenu() {
+			document.getElementById("navLinks").classList.toggle("active");
+		}
+
+		document.querySelectorAll(".nav-links a").forEach(function (link) {
+			link.addEventListener("click", function () {
+				document.getElementById("navLinks").classList.remove("active");
+			});
+		});
+	</script>
+
+</body>
+
+</html>

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#10252c">
+	<title>Kekezi Smart Mobility | Premium Taxi & Transfers Zurich</title>
+	<meta name="description" content="Premium airport, business, school and student transport in Zurich and throughout Switzerland. Kekezi Smart Mobility.">
+	<link rel="icon" type="image/png" href="../img/favicon.png">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--ink: #17272b;
+			--navy: #10252c;
+			--navy-soft: #193840;
+			--yellow: #f3c43d;
+			--yellow-deep: #ddb02e;
+			--paper: #f4f5f1;
+			--white: #fff;
+			--muted: #647276;
+			--line: #dce2df;
+			--teal: #36736e;
+			--content: 1180px;
+			--font: "Manrope", "Segoe UI", sans-serif;
+		}
+
+		*, *::before, *::after { box-sizing: border-box; }
+		html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+		body {
+			margin: 0;
+			color: var(--ink);
+			background: var(--white);
+			font-family: var(--font);
+			font-size: 16px;
+			line-height: 1.65;
+			-webkit-font-smoothing: antialiased;
+		}
+		a { color: inherit; text-decoration: none; }
+		img { display: block; max-width: 100%; }
+		button { font: inherit; }
+		.container { width: min(var(--content), calc(100% - 56px)); margin-inline: auto; }
+		section { padding: 96px 0; }
+		:focus-visible { outline: 3px solid var(--teal); outline-offset: 4px; }
+
+		.topbar { background: var(--navy); color: #eaf0ec; font-size: 13px; }
+		.topbar-content { min-height: 38px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+		.topbar a { color: var(--yellow); font-weight: 800; }
+		.topbar-tools { display: flex; align-items: center; gap: 16px; }
+		.language-switcher { position: relative; }
+		.language-switcher summary { color: var(--yellow); cursor: pointer; font-size: 12px; font-weight: 800; list-style: none; }
+		.language-switcher summary::-webkit-details-marker { display: none; }
+		.language-switcher summary::after { margin-left: 5px; content: "⌄"; }
+		.language-options { position: absolute; z-index: 40; top: calc(100% + 10px); right: 0; display: grid; min-width: 148px; padding: 6px; background: var(--white); border: 1px solid var(--line); box-shadow: 0 8px 22px rgba(16,37,44,.16); }
+		.language-options a { padding: 8px 10px; color: var(--navy); font-size: 13px; font-weight: 700; white-space: nowrap; }
+		.language-options a:hover, .language-options a[aria-current="page"] { background: var(--paper); color: var(--teal); }
+
+		.site-header {
+			position: sticky;
+			top: 0;
+			z-index: 20;
+			background: rgba(255, 255, 255, .97);
+			border-bottom: 1px solid var(--line);
+			backdrop-filter: blur(12px);
+		}
+		.nav { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 28px; position: relative; }
+		.logo-link { flex: 0 0 auto; }
+		.logo { width: 196px; height: auto; }
+		.nav-links { display: flex; align-items: center; gap: clamp(14px, 2vw, 27px); font-size: 13px; font-weight: 800; }
+		.nav-links a:not(.nav-button) { transition: color .2s ease; }
+		.nav-links a:not(.nav-button):hover { color: var(--teal); }
+		.nav-button, .btn {
+			display: inline-flex;
+			min-height: 48px;
+			align-items: center;
+			justify-content: center;
+			gap: 9px;
+			padding: 12px 19px;
+			border: 1px solid transparent;
+			border-radius: 6px;
+			font-size: 14px;
+			font-weight: 800;
+			transition: background-color .2s ease, color .2s ease, transform .2s ease;
+		}
+		.nav-button, .btn-primary { background: var(--yellow); color: var(--navy); }
+		.nav-button:hover, .btn-primary:hover { background: var(--yellow-deep); transform: translateY(-1px); }
+		.btn-outline { color: var(--white); border-color: rgba(255,255,255,.56); background: rgba(16,37,44,.32); }
+		.btn-outline:hover { background: rgba(255,255,255,.12); }
+		.menu-toggle { display: none; width: 46px; height: 46px; border: 1px solid var(--line); border-radius: 5px; background: var(--white); color: var(--navy); cursor: pointer; }
+		.menu-toggle span { display: block; width: 19px; height: 2px; margin: 4px auto; background: currentColor; transition: transform .2s ease; }
+		.menu-toggle[aria-expanded="true"] span:first-child { transform: translateY(3px) rotate(45deg); }
+		.menu-toggle[aria-expanded="true"] span:last-child { transform: translateY(-3px) rotate(-45deg); }
+
+		.hero {
+			position: relative;
+			isolation: isolate;
+			display: flex;
+			min-height: min(720px, calc(100svh - 116px));
+			align-items: center;
+			overflow: hidden;
+			background: var(--navy);
+			color: var(--white);
+		}
+		.hero-vehicle {
+			position: absolute;
+			z-index: 0;
+			right: max(-80px, calc((100vw - var(--content)) / 2 - 80px));
+			top: 50%;
+			width: min(36vw, 480px);
+			max-height: 78%;
+			object-fit: contain;
+			object-position: center;
+			transform: translateY(-50%);
+			pointer-events: none;
+		}
+		.hero-content { position: relative; z-index: 1; padding-block: 92px 105px; }
+		.hero-copy { max-width: 540px; }
+		.eyebrow { display: block; margin-bottom: 16px; color: var(--teal); font-size: 12px; font-weight: 800; text-transform: uppercase; }
+		.hero .eyebrow { color: var(--yellow); }
+		h1, h2, h3, p { margin-top: 0; }
+		h1 { max-width: 700px; margin-bottom: 20px; font-size: clamp(42px, 5.6vw, 72px); font-weight: 700; line-height: 1.07; }
+		h2 { margin-bottom: 15px; color: var(--navy); font-size: clamp(30px, 3.4vw, 44px); font-weight: 700; line-height: 1.16; }
+		h3 { margin-bottom: 8px; color: var(--navy); font-size: 19px; line-height: 1.35; }
+		.hero p { max-width: 540px; margin-bottom: 28px; color: #dce6e2; font-size: 18px; }
+		.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+		.hero-note { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 30px; color: #e4ece8; font-size: 13px; font-weight: 600; }
+		.hero-note span::before { content: ""; display: inline-block; width: 7px; height: 7px; margin: 0 9px 1px 0; border-radius: 50%; background: var(--yellow); }
+
+		.section-heading { max-width: 710px; margin-bottom: 42px; }
+		.section-heading p { max-width: 640px; margin-bottom: 0; color: var(--muted); font-size: 17px; }
+		.services-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+		.service-item { min-height: 205px; padding: 23px 22px 21px 0; border-top: 2px solid var(--yellow); }
+		.service-icon { display: grid; width: 42px; height: 42px; margin-bottom: 20px; place-items: center; background: var(--paper); color: var(--teal); font-size: 20px; }
+		.service-item p, .vehicle-content p { margin-bottom: 0; color: var(--muted); }
+
+		.pricing-section { background: var(--paper); }
+		.price-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+		.price-card { padding: 30px; background: var(--white); border: 1px solid var(--line); }
+		.price-card.featured { border-top: 4px solid var(--yellow); padding-top: 27px; }
+		.price-intro { color: var(--muted); }
+		.price { margin: 19px 0 4px; color: var(--navy); font-size: 34px; font-weight: 800; line-height: 1.2; }
+		.price span { color: var(--muted); font-size: 14px; font-weight: 600; }
+		.minimum { margin-bottom: 14px; color: var(--navy); font-size: 13px; font-weight: 800; }
+		.price-list { margin: 18px 0 0; padding: 0; list-style: none; }
+		.price-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 14px; padding: 12px 0; border-top: 1px solid var(--line); }
+		.price-list li span { min-width: 0; color: var(--muted); overflow-wrap: anywhere; }
+		.price-list strong { color: var(--navy); font-size: 14px; white-space: nowrap; }
+
+		.fleet-section { background: var(--white); }
+		.fleet-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+		.vehicle { min-width: 0; background: var(--white); border: 1px solid var(--line); }
+		.vehicle-image { display: grid; aspect-ratio: 4 / 3; padding: 22px; place-items: center; overflow: hidden; background: #e9eeeb; }
+		.vehicle-image img { width: 100%; height: 100%; object-fit: contain; transition: transform .35s ease; }
+		.vehicle:hover .vehicle-image img { transform: scale(1.035); }
+		.vehicle-content { padding: 21px 22px 24px; }
+		.vehicle-capacity { display: inline-block; margin: 0 0 10px; color: var(--teal); font-size: 12px; font-weight: 800; }
+
+		.why-section { background: var(--paper); }
+		.why-layout { display: grid; grid-template-columns: .9fr 1.1fr; align-items: start; gap: 60px; }
+		.why-layout .section-heading { margin-bottom: 0; }
+		.check-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; margin: 0; padding: 0; list-style: none; }
+		.check-list li { position: relative; padding-left: 30px; }
+		.check-list li::before { position: absolute; left: 0; top: 3px; display: grid; width: 20px; height: 20px; place-items: center; border-radius: 50%; background: var(--yellow); color: var(--navy); content: "✓"; font-size: 12px; font-weight: 800; }
+
+		.school-section { padding-block: 82px; }
+		.school-box { padding: 48px; background: var(--navy); color: var(--white); }
+		.school-box h2 { max-width: 760px; color: var(--white); }
+		.school-box > p { max-width: 760px; color: #dce6e2; }
+		.school-prices { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; margin: 32px 0; background: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.2); }
+		.school-price { min-height: 122px; padding: 20px; background: var(--navy); color: #dce6e2; font-size: 13px; }
+		.school-price strong { display: block; margin: 5px 0; color: var(--yellow); font-size: 25px; }
+		.school-box .check-list { margin-bottom: 28px; }
+		.school-box .check-list li { color: #edf2ef; }
+		.school-box .closing-note { margin: 0; color: #dce6e2; }
+
+		.contact-section { background: #edf1ee; }
+		.contact-grid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); align-items: center; gap: 56px; }
+		.contact-copy > p { max-width: 500px; color: var(--muted); }
+		.contact-details { display: grid; gap: 8px; margin: 25px 0; }
+		.contact-details strong { color: var(--navy); }
+		.contact-details a { width: fit-content; font-weight: 800; }
+		.contact-details a:hover { color: var(--teal); text-decoration: underline; }
+		.map-link { color: var(--navy); background: transparent; border-color: rgba(16,37,44,.35); }
+		.map-link:hover { background: rgba(16,37,44,.06); }
+		.map-frame { aspect-ratio: 4 / 3; min-height: 340px; overflow: hidden; background: #dce2df; border: 1px solid var(--line); }
+		.map-frame iframe { display: block; width: 100%; height: 100%; min-height: 340px; border: 0; }
+
+		footer { padding: 32px 0; background: var(--navy); color: var(--white); }
+		.footer-content { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+		.footer-content strong { font-size: 13px; }
+		.footer-content p { margin: 3px 0 0; color: #c4d0cb; font-size: 12px; }
+		.mobile-actions { display: none; }
+
+		@media (max-width: 980px) {
+			.container { width: min(var(--content), calc(100% - 44px)); }
+			.logo { width: 170px; }
+			.nav { gap: 18px; }
+			.nav-links { gap: 14px; font-size: 12px; }
+			.nav-button { padding-inline: 13px; }
+			.hero-vehicle { right: -30px; width: min(34vw, 320px); }
+			.hero-copy { max-width: 54vw; }
+			.services-grid, .fleet-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+			.service-item:last-child { grid-column: 1 / -1; }
+			.why-layout { gap: 36px; }
+			.check-list { grid-template-columns: 1fr; }
+			.contact-grid { gap: 34px; }
+		}
+
+		@media (max-width: 760px) {
+			html { scroll-padding-top: 76px; }
+			section { padding: 72px 0; }
+			.topbar-content { min-height: 36px; }
+			.nav { min-height: 68px; }
+			.logo { width: 156px; }
+			.menu-toggle { display: block; flex: 0 0 auto; }
+			.nav-links { position: absolute; top: 100%; left: -22px; right: -22px; display: none; align-items: stretch; gap: 0; padding: 8px 22px 18px; background: var(--white); border-bottom: 1px solid var(--line); box-shadow: 0 12px 18px rgba(16,37,44,.08); font-size: 14px; }
+			.nav-links.is-open { display: flex; flex-direction: column; }
+			.nav-links a:not(.nav-button) { padding: 12px 4px; border-bottom: 1px solid var(--line); }
+			.nav-links .nav-button { margin-top: 12px; }
+			.hero { min-height: 680px; min-height: min(740px, calc(100svh - 104px)); align-items: flex-start; }
+			.hero-content { padding-block: 74px 300px; }
+			.hero-copy { max-width: 610px; }
+			h1 { max-width: 620px; font-size: clamp(42px, 8vw, 62px); }
+			.hero p { max-width: 520px; font-size: 16px; }
+			.hero-vehicle { display: none; }
+			.hero-note { margin-top: 22px; }
+			.services-grid, .fleet-grid { gap: 14px; }
+			.service-item { min-height: 0; padding: 20px 16px 20px 0; }
+			.price-grid { gap: 16px; }
+			.price-card { padding: 24px; }
+			.price-card.featured { padding-top: 21px; }
+			.why-layout, .contact-grid { grid-template-columns: 1fr; }
+			.why-layout { gap: 28px; }
+			.check-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+			.school-box { padding: 34px; }
+			.school-prices { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+			.school-price { padding: 16px; }
+			.map-frame, .map-frame iframe { min-height: 300px; }
+		}
+
+		@media (max-width: 560px) {
+			.container { width: calc(100% - 36px); }
+			.topbar-content { justify-content: center; padding-block: 6px; text-align: center; }
+			.topbar-content > span:first-child { display: none; }
+			.nav-links { left: -18px; right: -18px; padding-inline: 18px; }
+			.hero { min-height: 710px; min-height: min(760px, calc(100svh - 76px)); }
+			.hero-content { padding-top: 58px; padding-bottom: 280px; }
+			h1 { font-size: clamp(39px, 11vw, 52px); }
+			.hero .eyebrow { margin-bottom: 12px; }
+			.hero-actions { display: grid; grid-template-columns: 1fr; max-width: 330px; }
+			.hero-actions .btn { width: 100%; }
+			.hero-vehicle { right: -3%; bottom: 0; width: min(78vw, 390px); max-height: 38%; }
+			.hero-note { gap: 5px 14px; font-size: 11px; }
+			section { padding: 60px 0; }
+			.section-heading { margin-bottom: 30px; }
+			.section-heading p { font-size: 15px; }
+			.services-grid, .fleet-grid, .price-grid { grid-template-columns: 1fr; }
+			.service-item:last-child { grid-column: auto; }
+			.service-item { padding: 20px 0; }
+			.price-card { padding: 21px; }
+			.price-card.featured { padding-top: 18px; }
+			.price-list li { gap: 10px; font-size: 14px; }
+			.price-list strong { font-size: 13px; }
+			.vehicle-image { aspect-ratio: 16 / 10; padding: 16px; }
+			.check-list { grid-template-columns: 1fr; }
+			.school-section { padding-block: 54px; }
+			.school-box { padding: 28px 22px; }
+			.school-prices { grid-template-columns: 1fr; margin: 24px 0; }
+			.school-price { min-height: 0; padding: 14px 16px; }
+			.school-price strong { font-size: 22px; }
+			.map-frame { aspect-ratio: 16 / 10; min-height: 0; }
+			.map-frame iframe { min-height: 0; }
+			.footer-content { align-items: flex-start; flex-direction: column; }
+			.mobile-actions {
+				position: fixed;
+				z-index: 30;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 1px;
+				padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+				background: rgba(255,255,255,.97);
+				border-top: 1px solid var(--line);
+				box-shadow: 0 -5px 20px rgba(16,37,44,.08);
+			}
+			.mobile-actions .btn { min-height: 46px; padding: 10px 12px; }
+			body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			html { scroll-behavior: auto; }
+			*, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+		}
+	</style>
+</head>
+<body>
+	<div class="topbar">
+		<div class="container topbar-content">
+			<span>Premium Transfer & Mobility Service Zurich</span>
+			<div class="topbar-tools">
+				<a href="tel:+41763402696">076 340 26 96</a>
+				<details class="language-switcher">
+					<summary aria-label="Choose language">EN</summary>
+					<div class="language-options">
+						<a href="../index.html" lang="de" hreflang="de">Deutsch</a>
+						<a href="index.html" lang="en" hreflang="en" aria-current="page">English</a>
+						<a href="../fra/index.html" lang="fr" hreflang="fr">Français</a>
+						<a href="../ita/index.html" lang="it" hreflang="it">Italiano</a>
+					</div>
+				</details>
+			</div>
+		</div>
+	</div>
+
+	<header class="site-header">
+		<div class="container nav">
+			<a href="#start" class="logo-link" aria-label="Kekezi Smart Mobility, home">
+				<img src="../img/logo.jpg" alt="Kekezi Smart Mobility" class="logo">
+			</a>
+			<button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="navLinks" aria-expanded="false">
+				<span></span><span></span>
+			</button>
+			<nav class="nav-links" id="navLinks" aria-label="Hauptnavigation">
+				<a href="#leistungen">Services</a>
+				<a href="#preise">Prices</a>
+				<a href="#fahrzeuge">Vehicles</a>
+				<a href="#schultransport">School transport</a>
+				<a href="#kontakt" class="nav-button">Request a quote</a>
+			</nav>
+		</div>
+	</header>
+
+	<main id="start">
+		<section class="hero" aria-labelledby="hero-title">
+			<img class="hero-vehicle" src="../img/s-class.png" alt="Black Mercedes-Benz V-Class for premium transfers" fetchpriority="high">
+			<div class="container hero-content">
+				<div class="hero-copy">
+					<span class="eyebrow">Kekezi Smart Mobility · Zurich</span>
+					<h1 id="hero-title">Arrive in style. Travel with confidence.</h1>
+					<p>Comfortable, discreet and reliable chauffeur service for business, airport transfers, VIPs, hotels, schools and events.</p>
+					<div class="hero-actions">
+						<a href="tel:+41763402696" class="btn btn-primary">Call now <span aria-hidden="true">↗</span></a>
+						<a href="#kontakt" class="btn btn-outline">Request a quote</a>
+					</div>
+					<div class="hero-note" aria-label="Our service">
+						<span>Zurich & Switzerland</span><span>Private & business</span><span>Available on request</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section id="leistungen">
+			<div class="container">
+				<div class="section-heading">
+					<span class="eyebrow">Our services</span>
+					<h2>Mobility tailored to you</h2>
+					<p>Professional transport solutions for individuals, companies, hotels, schools and institutions.</p>
+				</div>
+				<div class="services-grid">
+					<article class="service-item">
+						<div class="service-icon" aria-hidden="true">✈</div>
+						<h3>Airport transfers</h3>
+						<p>Punctual transfers to and from Zurich Airport, as well as airports across Switzerland and Europe.</p>
+					</article>
+					<article class="service-item">
+						<div class="service-icon" aria-hidden="true">◆</div>
+						<h3>Business & VIP</h3>
+						<p>Discreet chauffeur service for business clients, hotels, VIP guests and private journeys.</p>
+					</article>
+					<article class="service-item">
+						<div class="service-icon" aria-hidden="true">✦</div>
+						<h3>Events & special journeys</h3>
+						<p>Flexible transport for conferences, events, groups and individual requirements.</p>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section id="preise" class="pricing-section">
+			<div class="container">
+				<div class="section-heading">
+					<span class="eyebrow">2026 price list</span>
+					<h2>Clear pricing. Personal service.</h2>
+					<p>The prices below are a guide. We are happy to provide a personalised quote for your journey.</p>
+				</div>
+				<div class="price-grid">
+					<article class="price-card featured">
+						<h3>Chauffeur service</h3>
+						<p class="price-intro">Business and VIP transfers, available by the hour</p>
+						<div class="price">150 CHF <span>per hour</span></div>
+						<p class="minimum">Minimum booking: 2 hours</p>
+						<ul class="price-list">
+							<li><span>2 hours</span><strong>300 CHF</strong></li>
+							<li><span>4 hours</span><strong>600 CHF</strong></li>
+							<li><span>Full day, 8 hours</span><strong>from 900 CHF</strong></li>
+						</ul>
+					</article>
+					<article class="price-card">
+						<h3>Airport transfers</h3>
+						<p class="price-intro">Starting prices for selected routes</p>
+						<ul class="price-list">
+							<li><span>Zurich Airport → Zurich city</span><strong>from 120 CHF</strong></li>
+							<li><span>Zurich Airport → Zug / Lucerne</span><strong>from 220 CHF</strong></li>
+							<li><span>Zurich → Basel Airport</span><strong>from 280 CHF</strong></li>
+							<li><span>Zurich → Geneva Airport</span><strong>from 700 CHF</strong></li>
+							<li><span>Zurich → Europe</span><strong>On request</strong></li>
+						</ul>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section id="fahrzeuge" class="fleet-section">
+			<div class="container">
+				<div class="section-heading">
+					<span class="eyebrow">Our fleet</span>
+					<h2>The right vehicle for your journey</h2>
+					<p>Comfortable Mercedes-Benz vehicles with generous luggage space and business-class features.</p>
+				</div>
+				<div class="fleet-grid">
+					<article class="vehicle">
+						<div class="vehicle-image"><img src="../img/mercedes_benz_v_class.jpeg" alt="Black Mercedes-Benz V-Class" loading="lazy"></div>
+						<div class="vehicle-content"><span class="vehicle-capacity">UP TO 6–7 PASSENGERS</span><h3>Mercedes-Benz V-Class</h3><p>Ideal for groups, families, hotels and business transfers.</p></div>
+					</article>
+					<article class="vehicle">
+						<div class="vehicle-image"><img src="../img/mercedes_benz_e_class.jpeg" alt="Black Mercedes-Benz E-Class" loading="lazy"></div>
+						<div class="vehicle-content"><span class="vehicle-capacity">UP TO 3–4 PASSENGERS</span><h3>Mercedes-Benz E-Class</h3><p>A comfortable premium option for business and airport transfers.</p></div>
+					</article>
+					<article class="vehicle">
+						<div class="vehicle-image"><img src="../img/mercedes_benz_s_class.jpeg" alt="Black Mercedes-Benz S-Class" loading="lazy"></div>
+						<div class="vehicle-content"><span class="vehicle-capacity">UP TO 3–4 PASSENGERS</span><h3>Mercedes-Benz S-Class</h3><p>Exceptional comfort for VIP and private journeys.</p></div>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section class="why-section">
+			<div class="container why-layout">
+				<div class="section-heading">
+					<span class="eyebrow">Why Kekezi?</span>
+					<h2>A trusted partner from pickup to arrival</h2>
+				</div>
+				<ul class="check-list">
+					<li>Punctual, professional service</li>
+					<li>Discreet service for business and private clients</li>
+					<li>Flexible availability by arrangement</li>
+					<li>Premium comfort in Zurich and throughout Switzerland</li>
+					<li>Tailored solutions for companies and hotels</li>
+				</ul>
+			</div>
+		</section>
+
+		<section id="schultransport" class="school-section">
+			<div class="container">
+				<div class="school-box">
+					<span class="eyebrow">Student & school transport</span>
+					<h2>Safe journeys for schools, families and institutions</h2>
+					<p>Professional transport in Mercedes-Benz V-Class and E-Class vehicles for students, groups and special requirements.</p>
+					<div class="school-prices">
+						<div class="school-price">School route in Zurich<strong>from 50 CHF</strong>per trip</div>
+						<div class="school-price">Zurich area<strong>from 70 CHF</strong>per trip</div>
+						<div class="school-price">Half day / full day<strong>from 450 CHF</strong>up to 4 hours</div>
+					</div>
+					<ul class="check-list">
+						<li>Punctual pickup and return journeys</li>
+						<li>Professional chauffeur</li>
+						<li>Room for student groups</li>
+						<li>Safety and discretion</li>
+						<li>Flexible arrangements with schools</li>
+					</ul>
+					<p class="closing-note">Suitable for private and international schools, language schools, educational institutions and school events.</p>
+				</div>
+			</div>
+		</section>
+
+		<section id="kontakt" class="contact-section">
+			<div class="container contact-grid">
+				<div class="contact-copy">
+					<span class="eyebrow">Contact</span>
+					<h2>Let’s plan your next journey.</h2>
+					<p>Contact us for a personalised quote or book your premium transfer by phone.</p>
+					<div class="contact-details">
+						<strong>Kekezi Smart Mobility</strong>
+						<span>Premium airport & business transfers in Zurich</span>
+						<span>Unterrenggstrasse 40</span>
+						<span>8135 Langnau am Albis</span>
+						<a href="tel:+41763402696">076 340 26 96</a>
+						<a href="mailto:info@kekezi.ch">info@kekezi.ch</a>
+					</div>
+					<a href="https://www.google.com/maps/search/?api=1&amp;query=Unterrenggstrasse+40,+8135+Langnau+am+Albis,+Switzerland" target="_blank" rel="noopener noreferrer" class="btn map-link">Open route in Google Maps <span aria-hidden="true">↗</span></a>
+				</div>
+				<div class="map-frame">
+					<iframe src="https://www.google.com/maps?q=Unterrenggstrasse+40,+8135+Langnau+am+Albis,+Switzerland&amp;output=embed" title="Kekezi Smart Mobility location on Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer>
+		<div class="container footer-content">
+			<div><strong>KEKEZI SMART MOBILITY</strong><p>Premium transfer & mobility service in Zurich</p></div>
+			<p>© 2026 Kekezi Smart Mobility. All rights reserved.</p>
+		</div>
+	</footer>
+
+	<div class="mobile-actions" aria-label="Quick contact">
+		<a href="tel:+41763402696" class="btn btn-primary">Call</a>
+		<a href="#kontakt" class="btn map-link">Quote</a>
+	</div>
+
+	<script>
+		const menuToggle = document.querySelector(".menu-toggle");
+		const navLinks = document.getElementById("navLinks");
+
+		function setMenuOpen(isOpen) {
+			navLinks.classList.toggle("is-open", isOpen);
+			menuToggle.setAttribute("aria-expanded", String(isOpen));
+			menuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+		}
+
+		menuToggle.addEventListener("click", function () {
+			setMenuOpen(menuToggle.getAttribute("aria-expanded") !== "true");
+		});
+
+		navLinks.querySelectorAll("a").forEach(function (link) {
+			link.addEventListener("click", function () { setMenuOpen(false); });
+		});
+
+		document.addEventListener("keydown", function (event) {
+			if (event.key === "Escape") setMenuOpen(false);
+		});
+
+		document.querySelectorAll(".language-options a").forEach(function (link) {
+			link.addEventListener("click", function () {
+				try { localStorage.setItem("kekezi-language", link.hreflang); } catch {}
+			});
+		});
+	</script>
+</body>
+</html>
